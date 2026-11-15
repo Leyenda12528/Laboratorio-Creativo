@@ -90,8 +90,9 @@ function updatePreview(forceReload = false) {
   const frame = $("#preview");
   const documentHtml = previewDocument(activeProject());
   if (forceReload) {
-    frame.srcdoc = "";
-    requestAnimationFrame(() => { frame.srcdoc = documentHtml; });
+    const replacement = frame.cloneNode(false);
+    replacement.srcdoc = documentHtml;
+    frame.replaceWith(replacement);
     return;
   }
   frame.srcdoc = documentHtml;
