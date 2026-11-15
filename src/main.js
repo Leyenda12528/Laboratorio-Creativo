@@ -143,6 +143,7 @@ function switchView(view) {
   $("#crumb-current").textContent = labels[view];
   if (view === "missions") renderMissions();
   if (view === "projects") renderProjects();
+  if (view === "editor") requestAnimationFrame(() => requestAnimationFrame(updatePreview));
 }
 
 function exportBackup() {
@@ -225,7 +226,7 @@ $("#mission-grid").addEventListener("click", (event) => {
 $("#projects-grid").addEventListener("click", (event) => {
   const open = event.target.closest(".open-project");
   const remove = event.target.closest(".delete-project");
-  if (open) { store.activeProjectId = open.dataset.project; persist(); renderProject(); switchView("editor"); }
+  if (open) { store.activeProjectId = open.dataset.project; persist(); switchView("editor"); renderProject(); }
   if (remove) {
     store.projects = store.projects.filter((p) => p.id !== remove.dataset.project);
     if (store.activeProjectId === remove.dataset.project) store.activeProjectId = store.projects[0].id;
