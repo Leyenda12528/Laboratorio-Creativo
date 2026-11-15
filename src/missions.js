@@ -1,0 +1,38 @@
+export const missions = [
+  {
+    id: "mi-primera-pagina",
+    title: "Tu primera página web",
+    category: "PRIMEROS PASOS",
+    emoji: "🌱",
+    level: "Inicial",
+    description: "Crea una página sencilla sobre algo que te guste y aprende cómo se organiza un sitio web.",
+    prompt: "Ayúdame a crear una página web sencilla en español sobre mi tema favorito. Separa el resultado en tres bloques: HTML, CSS y JavaScript. Explícame en una frase dónde debo pegar cada bloque. Usa un diseño claro y alegre, y asegúrate de que funcione en un navegador.",
+  },
+  {
+    id: "tarjeta-personal",
+    title: "Una tarjeta sobre mí",
+    category: "DISEÑO WEB",
+    emoji: "🎨",
+    level: "Inicial",
+    description: "Diseña una tarjeta digital con tus intereses, colores favoritos y una presentación breve.",
+    prompt: "Ayúdame a crear una tarjeta web personal en español. Debe tener un título, un párrafo de presentación, tres cosas que me gustan y un botón que cambie un mensaje al hacer clic. Separa el código en HTML, CSS y JavaScript. Usa colores agradables, texto fácil de leer y explica brevemente dónde pegar cada parte.",
+  },
+  {
+    id: "quiz-divertido",
+    title: "Un quiz divertido",
+    category: "JUEGOS E IDEAS",
+    emoji: "🧩",
+    level: "Explorador",
+    description: "Construye un pequeño cuestionario interactivo para compartir un tema que conoces.",
+    prompt: "Ayúdame a crear un quiz interactivo en español sobre [escribe tu tema]. Incluye tres preguntas con opciones, indica si cada respuesta es correcta y muestra el resultado final. Separa el código en HTML, CSS y JavaScript. Usa botones grandes y un diseño que funcione en teléfono. Explícame dónde pegar cada bloque.",
+  },
+  {
+    id: "contador-habitos",
+    title: "Contador de buenos hábitos",
+    category: "JUEGOS E IDEAS",
+    emoji: "🌟",
+    level: "Explorador",
+    description: "Crea un contador con botones para registrar pequeños logros durante el día.",
+    prompt: "Ayúdame a crear una página web para llevar la cuenta de un hábito positivo. Incluye un número grande, un botón para sumar uno, otro para reiniciar y un mensaje que cambie según el progreso. Separa el código en HTML, CSS y JavaScript, con instrucciones claras para pegar cada parte.",
+  },
+];

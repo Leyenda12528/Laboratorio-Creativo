@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10151c" />
+    <meta name="description" content="Aprende creando proyectos web con ayuda de herramientas de IA." />
+    <title>Laboratorio Creativo</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <div class="file-warning" id="file-warning" hidden>
+      <strong>Ábrelo con el acceso rápido del proyecto.</strong>
+      <span>Al abrir este archivo directamente, el navegador bloquea el editor. Cierra esta pestaña y ejecuta <b>Abrir-Laboratorio.bat</b> desde la carpeta del proyecto.</span>
+    </div>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#inicio" aria-label="Laboratorio Creativo, inicio">
+          <span class="brand-mark">✳</span>
+          <span>Laboratorio<br /><strong>Creativo</strong></span>
+        </a>
+        <div class="sidebar-label">TU ESPACIO</div>
+        <nav class="side-nav" aria-label="Secciones">
+          <button class="nav-item active" data-view="editor"><span>⌘</span> Mi laboratorio</button>
+          <button class="nav-item" data-view="missions"><span>✦</span> Misiones <span class="nav-count" id="mission-count">0</span></button>
+          <button class="nav-item" data-view="projects"><span>▤</span> Mis proyectos</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="offline-card"><span class="status-dot"></span><span>Tu trabajo se guarda<br />en este dispositivo</span></div>
+          <div class="profile"><div class="avatar">LC</div><div><strong>Mi espacio</strong><small>Aprendiz creativo</small></div></div>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div class="breadcrumbs"><span>Laboratorio</span><span class="crumb-slash">/</span><strong id="crumb-current">Mi laboratorio</strong></div>
+          <div class="top-actions">
+            <span class="save-indicator" id="save-indicator"><span class="status-dot"></span> Guardado</span>
+            <button class="button button-quiet" id="export-button" title="Descargar respaldo">↓ <span>Respaldo</span></button>
+            <button class="button button-quiet" id="import-button" title="Importar respaldo">↑ <span>Importar</span></button>
+            <input type="file" id="import-file" accept="application/json,.json" hidden />
+          </div>
+        </header>
+
+        <section class="view active" id="view-editor">
+          <div class="page-heading">
+            <div><div class="eyebrow">APRENDE HACIENDO</div><h1>Tu espacio creativo <span class="wave">✦</span></h1><p>Describe una idea, crea con ayuda de IA y descubre lo que puedes construir.</p></div>
+            <div class="project-name-wrap"><label for="project-name">PROYECTO ACTUAL</label><input id="project-name" value="Mi primera creación" maxlength="60" /></div>
+          </div>
+          <div class="workspace-grid">
+            <section class="editor-panel panel">
+              <div class="panel-heading"><div><span class="panel-kicker">CÓDIGO</span><h2>Tu espacio de creación</h2></div><button class="button button-small" id="new-project">＋ Nuevo</button></div>
+              <div class="editor-tabs" role="tablist" aria-label="Lenguajes">
+                <button class="editor-tab active" data-editor-tab="html"> <i class="tab-dot html-dot"></i> HTML</button>
+                <button class="editor-tab" data-editor-tab="css"><i class="tab-dot css-dot"></i> CSS</button>
+                <button class="editor-tab" data-editor-tab="js"><i class="tab-dot js-dot"></i> JavaScript</button>
+                <span class="editor-hint">Pega aquí el código que creaste</span>
+              </div>
+              <div class="code-editors">
+                <textarea id="code-html" class="code-editor active" aria-label="Código HTML" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Escribe o pega tu HTML aquí…"></textarea>
+                <textarea id="code-css" class="code-editor" aria-label="Código CSS" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Escribe o pega tu CSS aquí…"></textarea>
+                <textarea id="code-js" class="code-editor" aria-label="Código JavaScript" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Escribe o pega tu JavaScript aquí…"></textarea>
+              </div>
+              <div class="editor-footer"><span><kbd>Ctrl</kbd> + <kbd>Enter</kbd> para ejecutar</span><button class="button button-primary" id="run-button">▶ <span>Ejecutar proyecto</span></button></div>
+            </section>
+            <section class="preview-panel panel">
+              <div class="panel-heading preview-heading"><div><span class="panel-kicker">VISTA PREVIA</span><h2>Así va quedando</h2></div><span class="live-badge"><i></i> EN VIVO</span></div>
+              <div class="preview-frame-wrap"><div class="preview-browser"><span></span><span></span><span></span><div class="preview-address">Tu creación</div></div><iframe id="preview" title="Vista previa segura del proyecto" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe></div>
+              <div class="preview-footer"><span>Los cambios aparecen automáticamente</span><button class="icon-button" id="refresh-preview" aria-label="Actualizar vista previa" title="Actualizar vista previa">↻</button></div>
+            </section>
+          </div>
+          <div class="bottom-grid">
+            <section class="mission-prompt panel">
+              <div class="panel-heading"><div><span class="panel-kicker">EMPIEZA CON UNA IDEA</span><h2 id="selected-mission-title">Tu primera página web</h2></div><button class="text-button" data-go="missions">Ver todas las misiones →</button></div>
+              <p id="selected-mission-description">Crea una página sencilla sobre algo que te guste. Pídele a una herramienta de IA que te ayude y pega aquí el código.</p>
+              <div class="prompt-box"><div><span class="prompt-label">PROMPT LISTO PARA COPIAR</span><p id="selected-prompt">Ayúdame a crear una página web sencilla en español sobre mi tema favorito. Separa el resultado en tres bloques: HTML, CSS y JavaScript. Explícame en una frase dónde debo pegar cada bloque. Usa un diseño claro y alegre, y asegúrate de que funcione en un navegador.</p></div><button id="copy-prompt" class="button button-copy">▢ <span>Copiar prompt</span></button></div>
+            </section>
+            <section class="progress-card panel"><div class="panel-heading"><div><span class="panel-kicker">TU CAMINO</span><h2>Tu progreso</h2></div><span class="progress-icon">✧</span></div><div class="progress-number"><strong id="progress-number">0</strong><span>misiones completadas</span></div><div class="progress-track"><span id="progress-fill"></span></div><p id="progress-caption">Tu primera misión te espera. ¡Anímate a crear!</p></section>
+          </div>
+        </section>
+
+        <section class="view" id="view-missions">
+          <div class="page-heading simple-heading"><div><div class="eyebrow">APRENDE PASO A PASO</div><h1>Misiones creativas <span class="wave">✦</span></h1><p>Cada misión es una oportunidad para probar algo nuevo.</p></div></div>
+          <div class="mission-grid" id="mission-grid"></div>
+        </section>
+
+        <section class="view" id="view-projects">
+          <div class="page-heading simple-heading"><div><div class="eyebrow">TODO LO QUE HAS CREADO</div><h1>Mis proyectos</h1><p>Tus proyectos se guardan en este dispositivo. Puedes descargar un respaldo cuando quieras.</p></div><button class="button button-primary" id="projects-new">＋ Crear proyecto</button></div>
+          <div class="projects-grid" id="projects-grid"></div>
+        </section>
+        <footer class="app-footer">Hecho para aprender, experimentar y crear. <span>✦</span></footer>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script>if (location.protocol === "file:") document.getElementById("file-warning").hidden = false;</script>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
