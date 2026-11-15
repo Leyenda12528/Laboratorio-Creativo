@@ -68,7 +68,7 @@ function renderProject() {
   $("#project-name").value = project.name;
   Object.entries(editors).forEach(([key, editor]) => { editor.value = project[key]; });
   renderSelectedMission();
-  updatePreview();
+  updatePreview(true);
 }
 
 function renderSelectedMission() {
@@ -86,9 +86,15 @@ function previewDocument(project) {
   return `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css.replace(/<\/style/gi, "<\\/style")}</style></head><body>${html}${js}</body></html>`;
 }
 
-function updatePreview() {
+function updatePreview(forceReload = false) {
   const frame = $("#preview");
-  frame.srcdoc = previewDocument(activeProject());
+  const documentHtml = previewDocument(activeProject());
+  if (forceReload) {
+    frame.srcdoc = "";
+    requestAnimationFrame(() => { frame.srcdoc = documentHtml; });
+    return;
+  }
+  frame.srcdoc = documentHtml;
 }
 
 function schedulePreview() {
@@ -143,7 +149,7 @@ function switchView(view) {
   $("#crumb-current").textContent = labels[view];
   if (view === "missions") renderMissions();
   if (view === "projects") renderProjects();
-  if (view === "editor") requestAnimationFrame(() => requestAnimationFrame(updatePreview));
+  if (view === "editor") requestAnimationFrame(() => requestAnimationFrame(() => updatePreview(true)));
 }
 
 function exportBackup() {
@@ -196,8 +202,8 @@ $("#project-name").addEventListener("input", (event) => {
   activeProject().updatedAt = new Date().toISOString();
   setSavePending();
 });
-$("#run-button").addEventListener("click", updatePreview);
-$("#refresh-preview").addEventListener("click", updatePreview);
+$("#run-button").addEventListener("click", () => updatePreview(true));
+$("#refresh-preview").addEventListener("click", () => updatePreview(true));
 $("#new-project").addEventListener("click", createProject);
 $("#projects-new").addEventListener("click", createProject);
 $("#export-button").addEventListener("click", exportBackup);
