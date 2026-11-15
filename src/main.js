@@ -35,6 +35,7 @@ let currentView = "editor";
 
 const $ = (selector) => document.querySelector(selector);
 const editors = { html: $("#code-html"), css: $("#code-css"), js: $("#code-js") };
+const previewHost = $("#preview").parentElement;
 const activeProject = () => store.projects.find((p) => p.id === store.activeProjectId);
 
 function persist() {
@@ -205,6 +206,12 @@ $("#project-name").addEventListener("input", (event) => {
 });
 $("#run-button").addEventListener("click", () => updatePreview(true));
 $("#refresh-preview").addEventListener("click", () => updatePreview(true));
+$("#expand-preview").addEventListener("click", () => {
+  $("#preview-dialog-frame").append($("#preview"));
+  $("#preview-dialog").showModal();
+});
+$("#close-preview").addEventListener("click", () => $("#preview-dialog").close());
+$("#preview-dialog").addEventListener("close", () => previewHost.append($("#preview")));
 $("#new-project").addEventListener("click", createProject);
 $("#projects-new").addEventListener("click", createProject);
 $("#export-button").addEventListener("click", exportBackup);
